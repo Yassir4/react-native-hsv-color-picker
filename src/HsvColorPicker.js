@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
-import {
-  View,
-  ViewPropTypes,
-  StyleSheet,
-} from 'react-native';
-import PropTypes from 'prop-types';
-import HuePicker from './HuePicker';
-import SaturationValuePicker from './SaturationValuePicker';
+import React, { Component } from "react";
+import { View, StyleSheet } from "react-native";
+import { ViewPropTypes } from "deprecated-react-native-prop-types";
+import PropTypes from "prop-types";
+import HuePicker from "./HuePicker";
+import SaturationValuePicker from "./SaturationValuePicker";
 
 export default class HsvColorPicker extends Component {
   constructor(props) {
@@ -82,9 +79,9 @@ export default class HsvColorPicker extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

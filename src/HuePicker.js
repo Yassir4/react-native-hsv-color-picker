@@ -1,31 +1,31 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Animated,
   View,
   TouchableWithoutFeedback,
-  ViewPropTypes,
   PanResponder,
   StyleSheet,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import PropTypes from 'prop-types';
-import chroma from 'chroma-js';
-import normalizeValue from './utils';
+import { ViewPropTypes } from "deprecated-react-native-prop-types";
+import { LinearGradient } from "expo-linear-gradient";
+import PropTypes from "prop-types";
+import chroma from "chroma-js";
+import normalizeValue from "./utils";
 
 export default class HuePicker extends Component {
   constructor(props) {
     super(props);
     this.hueColors = [
-      '#ff0000',
-      '#ffff00',
-      '#00ff00',
-      '#00ffff',
-      '#0000ff',
-      '#ff00ff',
-      '#ff0000',
+      "#ff0000",
+      "#ffff00",
+      "#00ff00",
+      "#00ffff",
+      "#0000ff",
+      "#ff00ff",
+      "#ff0000",
     ];
     this.firePressEvent = this.firePressEvent.bind(this);
-    this.sliderY = new Animated.Value(props.barHeight * props.hue / 360);
+    this.sliderY = new Animated.Value((props.barHeight * props.hue) / 360);
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onStartShouldSetPanResponderCapture: () => true,
@@ -34,17 +34,17 @@ export default class HuePicker extends Component {
       onPanResponderGrant: (evt, gestureState) => {
         const { hue } = this.props;
         this.dragStartValue = hue;
-        this.fireDragEvent('onDragStart', gestureState);
+        this.fireDragEvent("onDragStart", gestureState);
       },
       onPanResponderMove: (evt, gestureState) => {
-        this.fireDragEvent('onDragMove', gestureState);
+        this.fireDragEvent("onDragMove", gestureState);
       },
       onPanResponderTerminationRequest: () => true,
       onPanResponderRelease: (evt, gestureState) => {
-        this.fireDragEvent('onDragEnd', gestureState);
+        this.fireDragEvent("onDragEnd", gestureState);
       },
       onPanResponderTerminate: (evt, gestureState) => {
-        this.fireDragEvent('onDragTerminate', gestureState);
+        this.fireDragEvent("onDragTerminate", gestureState);
       },
       onShouldBlockNativeResponder: () => true,
     });
@@ -52,18 +52,16 @@ export default class HuePicker extends Component {
 
   componentDidUpdate(prevProps) {
     const { hue, barHeight } = this.props;
-    if (
-      prevProps.hue !== hue
-      || prevProps.barHeight !== barHeight
-    ) {
-      this.sliderY.setValue(barHeight * hue / 360);
+    if (prevProps.hue !== hue || prevProps.barHeight !== barHeight) {
+      this.sliderY.setValue((barHeight * hue) / 360);
     }
   }
 
   getContainerStyle() {
     const { sliderSize, barWidth, containerStyle } = this.props;
     const paddingTop = sliderSize / 2;
-    const paddingLeft = sliderSize - barWidth > 0 ? (sliderSize - barWidth) / 2 : 0;
+    const paddingLeft =
+      sliderSize - barWidth > 0 ? (sliderSize - barWidth) / 2 : 0;
     return [
       styles.container,
       containerStyle,
@@ -120,12 +118,7 @@ export default class HuePicker extends Component {
 
   render() {
     const { hueColors } = this;
-    const {
-      sliderSize,
-      barWidth,
-      barHeight,
-      borderRadius,
-    } = this.props;
+    const { sliderSize, barWidth, barHeight, borderRadius } = this.props;
     return (
       <View style={this.getContainerStyle()}>
         <TouchableWithoutFeedback onPress={this.firePressEvent}>
@@ -135,9 +128,11 @@ export default class HuePicker extends Component {
               borderRadius,
             }}
           >
-            <View style={{
-              width: barWidth, height: barHeight,
-            }}
+            <View
+              style={{
+                width: barWidth,
+                height: barHeight,
+              }}
             />
           </LinearGradient>
         </TouchableWithoutFeedback>
@@ -151,9 +146,11 @@ export default class HuePicker extends Component {
               borderRadius: sliderSize / 2,
               borderWidth: sliderSize / 10,
               backgroundColor: this.getCurrentColor(),
-              transform: [{
-                translateY: this.sliderY,
-              }],
+              transform: [
+                {
+                  translateY: this.sliderY,
+                },
+              ],
             },
           ]}
         />
@@ -164,13 +161,13 @@ export default class HuePicker extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   slider: {
     top: 0,
-    position: 'absolute',
-    borderColor: '#fff',
+    position: "absolute",
+    borderColor: "#fff",
   },
 });
 
